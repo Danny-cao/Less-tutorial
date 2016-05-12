@@ -4,10 +4,17 @@
     $less = new lessc();
 
 
-    $less->setVariables(array(
-        "changeColor1" => "rgb(40,40,40)",
-        "changeColor2" => "rgb(10, 18, 180)"
-    ));
+    $colorArray = array(
+      "changeColor1" => "rgb(40,40,40)",
+      "changeColor2" => "rgb(10, 18, 180)");
+
+    if ( isset( $_POST["submit"])){
+        var_dump($_POST);
+        $colorArray["changeColor1"] = $_POST["color1"];
+        $colorArray["changeColor2"] = $_POST["color2"];
+    }
+
+    $less->setVariables($colorArray);
 
     $less->compileFile("less_compilefile.less", "less_compilefile.css");
 ?>
@@ -113,9 +120,12 @@
             </tr>
         </table>
 
-        <form action="./lessphp_example_compileFile_tocss.php">
-          Kleur: <input type="color" name="color" value"#tbl1"><br>
-          <input type="submit" value="Submit">
+        <form method="post" action="./lessphp_example_compileFile_tocss.php">
+          <table>
+          Kleur 1: <input type="color" name="color1" ><br>
+          Kleur 2: <input type="color" name="color2" ><br>
+          <input type="submit" value="Nieuwe kleur" name="submit">
+        </table>
         </form>
 
     </body>
